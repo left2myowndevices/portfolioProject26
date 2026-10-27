@@ -1,6 +1,7 @@
-import Link from "next/link";
 import type { Metadata } from "next";
+import BackToTop from "@/components/back-to-top";
 import CaseStudyFacts from "@/components/case-study-facts";
+import CaseStudyHeader from "@/components/case-study-header";
 
 export const metadata: Metadata = {
   title: "Dense Upload Flow Refinement | Jess Draper",
@@ -55,10 +56,7 @@ const phases = [
 export default function BatchUploadCaseStudyPage() {
   return (
     <main className="case-study-page">
-      <header className="case-study-nav">
-        <Link className="case-study-wordmark" href="/">Jess <span>Draper</span></Link>
-        <Link className="case-study-back-link" href="/case-studies"><span>←</span> Case studies</Link>
-      </header>
+      <CaseStudyHeader />
 
       <section className="case-study-hero">
         <p className="eyebrow">Workflow refinement</p>
@@ -103,6 +101,7 @@ export default function BatchUploadCaseStudyPage() {
         <h2>Use hierarchy to make dense work feel clear, not decorative.</h2>
         <p>The final screen is still direct, but the work surfaces now read immediately. That leaves people free to focus on the data instead of the interface.</p>
       </section>
+      <BackToTop />
     </main>
   );
 }

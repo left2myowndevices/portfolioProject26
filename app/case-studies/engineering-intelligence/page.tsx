@@ -1,6 +1,7 @@
-import Link from "next/link";
 import type { Metadata } from "next";
+import BackToTop from "@/components/back-to-top";
 import CaseStudyFacts from "@/components/case-study-facts";
+import CaseStudyHeader from "@/components/case-study-header";
 
 export const metadata: Metadata = {
   title: "Engineering Intelligence Concept | Jess Draper",
@@ -10,10 +11,7 @@ export const metadata: Metadata = {
 export default function EngineeringIntelligencePage() {
   return (
     <main className="case-study-page">
-      <header className="case-study-nav">
-        <Link className="case-study-wordmark" href="/">Jess <span>Draper</span></Link>
-        <Link className="case-study-back-link" href="/case-studies"><span>←</span> Case studies</Link>
-      </header>
+      <CaseStudyHeader />
 
       <section className="case-study-hero">
         <p className="eyebrow">Operational tooling concept</p>
@@ -78,6 +76,7 @@ export default function EngineeringIntelligencePage() {
         <h2>Use data to support judgment, not replace it.</h2>
         <p>This concept balances the usefulness of technical evidence with the responsibility to show its limits. The result is a clearer operating view that invites the right conversation instead of presenting a false conclusion.</p>
       </section>
+      <BackToTop />
     </main>
   );
 }

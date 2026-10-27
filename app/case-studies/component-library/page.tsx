@@ -1,6 +1,7 @@
-import Link from "next/link";
 import type { Metadata } from "next";
+import BackToTop from "@/components/back-to-top";
 import CaseStudyFacts from "@/components/case-study-facts";
+import CaseStudyHeader from "@/components/case-study-header";
 import ComponentLibraryShowcase from "@/components/component-library-showcase";
 
 export const metadata: Metadata = {
@@ -11,10 +12,7 @@ export const metadata: Metadata = {
 export default function ComponentLibraryPage() {
   return (
     <main className="case-study-page component-library-case">
-      <header className="case-study-nav">
-        <Link className="case-study-wordmark" href="/">Jess <span>Draper</span></Link>
-        <Link className="case-study-back-link" href="/case-studies"><span>←</span> Case studies</Link>
-      </header>
+      <CaseStudyHeader />
 
       <section className="case-study-hero">
         <p className="eyebrow">Component library</p>
@@ -61,6 +59,7 @@ export default function ComponentLibraryPage() {
         <h2>Start with product work, then turn proven patterns into durable infrastructure.</h2>
         <p>A useful component library is not separate from product delivery. It captures the decisions that have already earned their place, so the next surface can begin with a stronger, more consistent foundation.</p>
       </section>
+      <BackToTop />
     </main>
   );
 }
