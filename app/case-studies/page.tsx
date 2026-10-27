@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import BackToTop from "@/components/back-to-top";
 
 export const metadata: Metadata = {
   title: "Case Studies | Jess Draper",
@@ -71,6 +72,7 @@ export default function CaseStudiesPage() {
           </article>
         ))}
       </section>
+      <BackToTop />
     </main>
   );
 }

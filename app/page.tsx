@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import ContactForm from "@/components/contact-form";
+import BackToTop from "@/components/back-to-top";
 import ProductIcon from "@/components/product-icon";
 import {
   approach,
@@ -17,9 +17,7 @@ import {
 
 export default function HomePage() {
   const [activeSection, setActiveSection] = useState("home");
-  const [isAtPageEnd, setIsAtPageEnd] = useState(false);
   const [isContactVisible, setIsContactVisible] = useState(false);
-  const [isFooterVisible, setIsFooterVisible] = useState(false);
   const [isSectionIndexOpen, setIsSectionIndexOpen] = useState(false);
   const sectionIndexCloseTimeout = useRef<number | null>(null);
 
@@ -50,11 +48,8 @@ export default function HomePage() {
       }
 
       setActiveSection(current);
-      setIsAtPageEnd(window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 32);
       const contact = document.getElementById("contact");
       setIsContactVisible(Boolean(contact && contact.getBoundingClientRect().top <= window.innerHeight * 0.72));
-      const footer = document.querySelector("footer");
-      setIsFooterVisible(Boolean(footer && footer.getBoundingClientRect().top < window.innerHeight));
     }
 
     onScroll();
@@ -72,7 +67,6 @@ export default function HomePage() {
       <header className="site-header">
         <nav className="site-nav" aria-label="Main navigation">
           <a className="site-wordmark" href="#home">Jess <span>Draper</span></a>
-          <Link className="site-case-studies-link" href="/case-studies">Case studies <span>↗</span></Link>
         </nav>
       </header>
 
@@ -110,7 +104,7 @@ export default function HomePage() {
             </p>
             <div className="hero-actions">
               <Link className="button button-primary" href="/case-studies">View case studies <span>↗</span></Link>
-              <a className="text-link" href="#tools">Explore my toolkit <span>↓</span></a>
+              <a className="text-link toolkit-link" href="#tools">Explore my toolkit <span className="binoculars-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 6h10l2 11H5L7 6Z" /><path d="M10 6V4h4v2" /><circle cx="8.5" cy="14" r="2.25" /><circle cx="15.5" cy="14" r="2.25" /></svg></span></a>
               <a className="text-link" href={resumePath} download>Download resume <span>↓</span></a>
             </div>
           </div>
@@ -156,10 +150,10 @@ export default function HomePage() {
         </div>
         <div className="tool-grid">
           {frameworksAndTools.map((tool) => (
-            <div className="tool-tile" key={tool}>
-              <ProductIcon name={tool} />
-              <span>{tool}</span>
-            </div>
+            <a className="tool-tile" href={tool.href} target="_blank" rel="noreferrer" aria-label={`Open ${tool.name} website in a new tab`} key={tool.name}>
+              <ProductIcon name={tool.name} />
+              <span>{tool.name}</span>
+            </a>
           ))}
         </div>
       </section>
@@ -186,14 +180,13 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="contact-section" id="contact">
+      <section className="contact-section contact-section-linkedin" id="contact">
         <div className="contact-copy">
           <p className="eyebrow">Let&apos;s work together</p>
           <h2>Ready to make something that feels <em>right?</em></h2>
           <p>I&apos;m interested in product design and frontend roles where craft, clear thinking, and business outcomes all matter.</p>
           <a className="text-link" href={linkedInUrl} target="_blank" rel="noreferrer">Connect on LinkedIn <span>↗</span></a>
         </div>
-        <div className="contact-form-wrap"><ContactForm /></div>
       </section>
 
       <footer>
@@ -201,9 +194,7 @@ export default function HomePage() {
         <p>Product design &amp; frontend engineering</p>
       </footer>
 
-      <a className={`back-to-top${isContactVisible || isAtPageEnd ? " is-visible" : ""}${isFooterVisible ? " is-footer-visible" : ""}`} href="#home" aria-label="Back to top">
-        <span aria-hidden="true">↑</span>
-      </a>
+      <BackToTop visible={isContactVisible} />
     </main>
   );
 }

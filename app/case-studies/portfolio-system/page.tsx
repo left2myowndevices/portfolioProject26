@@ -1,6 +1,7 @@
-import Link from "next/link";
 import type { Metadata } from "next";
+import BackToTop from "@/components/back-to-top";
 import CaseStudyFacts from "@/components/case-study-facts";
+import CaseStudyHeader from "@/components/case-study-header";
 import {
   ColorComparison,
   ComponentStates,
@@ -37,10 +38,7 @@ const decisions = [
 export default function PortfolioSystemCaseStudyPage() {
   return (
     <main className="case-study-page">
-      <header className="case-study-nav">
-        <Link className="case-study-wordmark" href="/">Jess <span>Draper</span></Link>
-        <Link className="case-study-back-link" href="/case-studies"><span>←</span> Case studies</Link>
-      </header>
+      <CaseStudyHeader />
 
       <section className="case-study-hero">
         <p className="eyebrow">Portfolio design system</p>
@@ -126,6 +124,7 @@ export default function PortfolioSystemCaseStudyPage() {
           </div>
         </section>
       </details>
+      <BackToTop />
     </main>
   );
 }
