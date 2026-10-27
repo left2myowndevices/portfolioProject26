@@ -9,6 +9,14 @@ export const metadata: Metadata = {
 const caseStudies = [
   {
     number: "01",
+    eyebrow: "Component library",
+    title: "Turning repeated product patterns into a shared system.",
+    summary: "I built reusable components inside application surfaces, then formalized those patterns as a typed, documented React library.",
+    detail: "Component APIs, Storybook, accessibility tooling, tests, and package distribution.",
+    href: "/case-studies/component-library",
+  },
+  {
+    number: "02",
     eyebrow: "Portfolio design system",
     title: "Building a portfolio that shows how I think and work.",
     summary: "A self-directed design system for presenting product design and frontend engineering work with a clear point of view.",
@@ -16,7 +24,7 @@ const caseStudies = [
     href: "/case-studies/portfolio-system",
   },
   {
-    number: "02",
+    number: "03",
     eyebrow: "Operational tooling concept",
     title: "Making engineering attention easier to act on.",
     summary: "A self-initiated concept for reading maintainability signals across different application surfaces without turning people into metrics.",
@@ -24,7 +32,7 @@ const caseStudies = [
     href: "/case-studies/engineering-intelligence",
   },
   {
-    number: "03",
+    number: "04",
     eyebrow: "Workflow refinement",
     title: "Making a dense upload flow easier to use.",
     summary: "An anonymized internal-workflow refinement that makes high-density data entry easier to scan, understand, and review.",
@@ -44,7 +52,7 @@ export default function CaseStudiesPage() {
       <section className="case-studies-index-hero">
         <p className="eyebrow">Case studies</p>
         <h1>Work shaped by clear questions and careful iteration.</h1>
-        <p>Three projects that show how I approach product systems, engineering context, and high-density workflow design.</p>
+        <p>Four projects that show how I approach reusable systems, product interfaces, engineering context, and high-density workflow design.</p>
       </section>
 
       <section className="case-studies-list" aria-label="Case studies">
