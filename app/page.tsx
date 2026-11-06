@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import BackToTop from "@/components/back-to-top";
 import ProductIcon from "@/components/product-icon";
@@ -15,7 +15,18 @@ import {
   skillGroups,
 } from "@/lib/portfolio-content";
 
+function subscribeToCompactMenu(onChange: () => void) {
+  const query = window.matchMedia("(max-width: 1180px)");
+  query.addEventListener("change", onChange);
+  return () => query.removeEventListener("change", onChange);
+}
+
+function getCompactMenuSnapshot() {
+  return window.matchMedia("(max-width: 1180px)").matches;
+}
+
 export default function HomePage() {
+  const isCompactMenu = useSyncExternalStore(subscribeToCompactMenu, getCompactMenuSnapshot, () => false);
   const [activeSection, setActiveSection] = useState("home");
   const [isContactVisible, setIsContactVisible] = useState(false);
   const [isSectionIndexOpen, setIsSectionIndexOpen] = useState(false);
@@ -60,7 +71,7 @@ export default function HomePage() {
     };
   }, []);
 
-  const isSectionIndexExpanded = activeSection !== "home" || isSectionIndexOpen;
+  const isSectionIndexExpanded = (!isCompactMenu && activeSection !== "home") || isSectionIndexOpen;
 
   return (
     <main>
@@ -73,22 +84,23 @@ export default function HomePage() {
       <nav
         className={`section-index${isSectionIndexExpanded ? " is-open" : ""}${isContactVisible ? " is-contact" : ""}`}
         aria-label="Section index"
-        onPointerEnter={openSectionIndex}
-        onPointerLeave={closeSectionIndexSoon}
-        onFocus={openSectionIndex}
-        onBlur={closeSectionIndexSoon}
+        onPointerEnter={(event) => { if (event.pointerType === "mouse" && !isCompactMenu) openSectionIndex(); }}
+        onPointerLeave={() => { if (!isCompactMenu) closeSectionIndexSoon(); }}
+        onFocus={() => { if (!isCompactMenu) openSectionIndex(); }}
+        onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) closeSectionIndexSoon(); }}
+        onKeyDown={(event) => { if (event.key === "Escape") setIsSectionIndexOpen(false); }}
       >
         <button
           className="section-index-title"
           type="button"
           aria-expanded={isSectionIndexExpanded}
           aria-label="Toggle contents menu"
-          onClick={() => setIsSectionIndexOpen((isOpen) => !isOpen)}
+          onClick={() => { if (isSectionIndexOpen) setIsSectionIndexOpen(false); else openSectionIndex(); }}
         >
           Contents
         </button>
         {navigationItems.map((item, index) => (
-          <a className={activeSection === item.id ? "is-active" : undefined} href={`#${item.id}`} key={item.id}>
+          <a className={activeSection === item.id ? "is-active" : undefined} href={`#${item.id}`} key={item.id} tabIndex={isSectionIndexExpanded ? undefined : -1} onClick={() => setIsSectionIndexOpen(false)}>
             <span>{String(index + 1).padStart(2, "0")}</span>{item.label}
           </a>
         ))}

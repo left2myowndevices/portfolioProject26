@@ -143,16 +143,24 @@ footer { display: grid; grid-template-columns: 1fr auto; align-items: center; wi
 footer p { margin: 0; font-family: var(--font-sans); }
 
 @media (max-width: 1180px) {
-  .section-index { display: none; }
+  .section-index { top: 88px; right: var(--page-gutter); width: 64px; height: 64px; transform: none; }
+  .section-index-title { width: 64px; height: 64px; font-size: .55rem; }
+  .section-index a { top: 80px; right: 0; left: auto; transform: translateY(-8px) scale(.95); transform-origin: right top; }
+  .section-index.is-open a:nth-of-type(1) { transform: none; }
+  .section-index.is-open a:nth-of-type(2) { transform: translateY(50px); }
+  .section-index.is-open a:nth-of-type(3) { transform: translateY(100px); }
+  .section-index.is-open a:nth-of-type(4) { transform: translateY(150px); }
+  .section-index.is-contact { transform: scale(.82); }
 }
 
 @media (max-width: 860px) {
-  .site-nav { min-height: 64px; } .section-index { display: none; }
+  .site-nav { min-height: 64px; } .section-index { top: 80px; }
   .hero { min-height: auto; padding-top: 80px; } .hero-grid, .section-heading, .contact-section { grid-template-columns: 1fr; } .section-heading h2 { white-space: normal; } .hero-mark { justify-self: start; width: 220px; } .hero-portrait figcaption { text-align: left; }
   .skill-groups, .tool-grid { grid-template-columns: repeat(2, 1fr); } .timeline li { grid-template-columns: 45px 1fr; gap: 16px; } .timeline-detail { grid-column: 2; } .approach-list { grid-template-columns: 1fr; } .approach-list article { min-height: auto; } .approach-list h3 { margin-top: 26px; }
 }
 
 @media (max-width: 560px) {
+  .section-index { right: var(--page-gutter-compact); }
   .site-nav, .hero, .skills-section, .tools-section, .experience-section, .contact-section, footer { width: min(calc(100% - (var(--page-gutter-compact) * 2)), var(--content-max)); } .approach-section { padding-right: 16px; padding-left: 16px; } .hero h1 { font-size: clamp(3.2rem, 14.5vw, 4.65rem); } .hero-actions { align-items: flex-start; flex-direction: column; gap: 18px; } .scroll-prompt { display: none; } .section-heading h2 { font-size: 2.45rem; } .skill-groups, .tool-grid { grid-template-columns: 1fr; } .skill-group { min-height: auto; } .contact-section { padding-top: 82px; padding-bottom: 82px; } footer { grid-template-columns: 1fr; gap: 12px; padding: 28px 0; }
 }
 
